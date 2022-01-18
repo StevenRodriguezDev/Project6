@@ -119,6 +119,11 @@ button {
   font-size: var(--font-size-medium);
 }
 
+.btn__reset:hover {
+  cursor: pointer;
+  background-color: lightskyblue;
+  color: #FFF;
+}
 /* Overlay */
 
 #overlay {
@@ -142,8 +147,11 @@ button {
   background-color: var(--color-start);
 }
 
-.start a {
+/* .start a {
   color: var(--color-win);
+} */
+.start a {
+  color:black;
 }
 
 .win {
