@@ -6,10 +6,13 @@ const overlay = document.getElementById('overlay');
 
 let missed = 0;
 
-// // const startMusic
-// function playGameMusic (){
-// let gameMusic = new Audio('Audio/FF_SCI_122_synth_chords_summer_fun_Abmaj.mp3');
-// }
+// const { Howl } = require('howler');
+
+// const sound = new Howl({
+//   src: ['menu.wav']
+// });
+
+// sound.play();
 
 const ul = document.querySelector('#phrase ul');
 // <--- Array named Phrases --->
@@ -24,7 +27,8 @@ const phrases = [
 //  <---listens for the start of the game button to be pressed--->
 startGame[0].addEventListener('click', () => {
     overlay.style.display = 'none';
-
+    // sound.play();
+   
 });
 
 
