@@ -6,25 +6,31 @@ const overlay = document.getElementById('overlay');
 
 let missed = 0;
 
+// // const startMusic
+// function playGameMusic (){
+// let gameMusic = new Audio('Audio/FF_SCI_122_synth_chords_summer_fun_Abmaj.mp3');
+// }
+
 const ul = document.querySelector('#phrase ul');
 // <--- Array named Phrases --->
-const phrases =  [
-    'Remember why you started',
-    'Do what you love',
-    'Get better every single day',
-    'It is the will not the skill',
-    'Trust the process'
+const phrases = [
+    'remember why you started',
+    'do what you love',
+    'get better every single day',
+    'it is the will not the skill',
+    'trust the process',
 ];
 
 //  <---listens for the start of the game button to be pressed--->
 startGame[0].addEventListener('click', () => {
     overlay.style.display = 'none';
+
 });
 
 
 //  <--- return a random phrase from an array --->
 function getRandomPhraseAsArray(phrases){
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+    const randomPhrase = phrases[Math.floor(Math.random()*phrases.length)];
     const phraseSplit = randomPhrase.split('');
     return phraseSplit;
 };
@@ -36,8 +42,9 @@ const getRandomPhrase = getRandomPhraseAsArray(phrases);
 
 // <--- add letters of a string to the display --->
 function addPhraseToDisplay(phrase){
-    for (let i = 0; i < phrase.length; i ++){
+    for(let i = 0; i < phrase.length; i++){
         const list = document.createElement('li');
+        list.textContent = phrase[i];
         ul.appendChild(list);
 
         if (phrase[i] === ' '){
@@ -52,18 +59,15 @@ const phraseDisplay = addPhraseToDisplay(getRandomPhrase);
 // console.log (getRandomPhrase)
 
 
-
-
-
 // <--- checks if a letter is in the phrase --->
-function checkLetter (clicked) {
+function checkLetter(button){
     const letters = document.querySelectorAll('.letter');
     let matchingLetters = null;
 
-    for (i = 0; i < letters.length; i++) {
-        if (clicked.textcontent === letterList[i].textcontent) {
+    for (let i = 0; i < letters.length; i++) {
+        if (button.textContent === letters[i].textContent) {
             letters[i].classList.add('show');
-            letters[i].style.transition = '0.5 ease-in-out';
+            letters[i].style.transition = '.5ease-in-out';
             matchingLetters = true;
         }
     }
@@ -72,12 +76,72 @@ function checkLetter (clicked) {
 // const checkLetter = button => {}
 
 
-// //checks if the game has been won or lost
-// const checkWin = () => {
+//  <--- listen for the onscreen keyboard to be clicked --->
+qwerty.addEventListener('click', (z) => { 
+    if(z.target.tagName === 'BUTTON'){
+        z.target.className = 'chosen';
+        z.target.setAttribute('disabled', '');
+        let matchingLetters = checkLetter(z.target);
+        if(matchingLetters === null){
+            document.querySelectorAll('img')[missed].src = 'images/lostHeart.png';
+            z.target.className = 'mismatch';
+            missed ++;
+        }
+        checkWin();
+    }
+    // checkWin();
+})
+// qwerty.addEventListener('click', e => {});
 
-// }
 
-// //listen for the onscreen keyboard to be clicked
-// qwerty.addEventListener('click', e => {
+// <--- checks if the game has been won or lost --->
+function checkWin() {
+    const letterClass = document.getElementsByClassName('letter');
+    const show = document.getElementsByClassName('show');
 
-// });
+    if (letterClass.length === show.length) {
+        overlay.style.display = 'flex';
+        overlay.className = 'win';
+        document.querySelector('h2').textContent = "you did it!";
+        playAgain();
+    } else if (missed > 4 ) {
+        overlay.style.display = 'flex';
+        overlay.className = 'lose';
+        document.querySelector('h2').textContent = "try again!";
+        playAgain();
+    }
+}
+// const checkWin = () => {}
+
+//<---- reset ---->
+function playAgain(){
+    startGame[0].textContent = 'Play Again';
+    // startGame[0].style.backgroundColor = 'green';
+    ul.textContent = ' ';
+
+    const gameLetters = document.querySelectorAll('.chosen');
+    const mismatchedLetters = document.querySelectorAll('.mismatch');
+
+ for(let i = 0; i < gameLetters.length; i++) {
+      gameLetters[i].classList.remove('chosen');
+      gameLetters[i].disabled = false;
+    }  
+  
+ for(let i = 0; i < mismatchedLetters.length; i++) {
+     mismatchedLetters[i].classList.remove('mismatch');
+     mismatchedLetters[i].disabled = false;
+    } 
+
+ const newPhrase = getRandomPhraseAsArray(phrases);
+ addPhraseToDisplay(newPhrase);
+
+ const newHearts = document.querySelectorAll('.tries img');
+ for(i = 0;  i < newHearts.length; i++) {
+     newHearts[i].src = 'images/liveHeart.png';
+ }
+ startGame[0].addEventListener('click', () => {
+         playAgain();
+ });
+
+
+}
