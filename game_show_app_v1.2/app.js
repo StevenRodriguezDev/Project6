@@ -6,8 +6,6 @@ const overlay = document.getElementById('overlay');
 
 let missed = 0;
 
-
-
 const ul = document.querySelector('#phrase ul');
 // <--- Array named Phrases --->
 const phrases = [
@@ -21,8 +19,6 @@ const phrases = [
 //  <---listens for the start of the game button to be pressed--->
 startGame[0].addEventListener('click', () => {
     overlay.style.display = 'none';
-    
-   
 });
 
 
@@ -75,7 +71,7 @@ function checkLetter(button){
 
 
 //  <--- listen for the onscreen keyboard to be clicked --->
-qwerty.addEventListener('click', (z) =>{ 
+qwerty.addEventListener('click', (z) => {  
     if(z.target.tagName === 'BUTTON'){
         z.target.className = 'chosen';
         z.target.setAttribute('disabled', '');
@@ -89,6 +85,7 @@ qwerty.addEventListener('click', (z) =>{
     }
     //  checkWin();
 })
+
 // qwerty.addEventListener('click', e => {});
 
 
@@ -98,8 +95,8 @@ function checkWin() {
     const show = document.getElementsByClassName('show');
 
     if (letterClass.length === show.length) {
-        overlay.style.display = 'flex';
-        overlay.className = 'win';
+        overlay.style.display= 'flex';
+        overlay.className= 'win';
         document.querySelector('h2').textContent = "you did it!";
         playAgain();
     } else if (missed > 4 ) {
@@ -114,7 +111,7 @@ function checkWin() {
 //<---- reset ---->
 function playAgain(){
     startGame[0].textContent = 'Play Again';
-    // startGame[0].style.backgroundColor = 'green';
+    missed = 0;
     ul.textContent = ' ';
 
     const gameLetters = document.querySelectorAll('.chosen');
