@@ -6,13 +6,7 @@ const overlay = document.getElementById('overlay');
 
 let missed = 0;
 
-// const { Howl } = require('howler');
 
-// const sound = new Howl({
-//   src: ['menu.wav']
-// });
-
-// sound.play();
 
 const ul = document.querySelector('#phrase ul');
 // <--- Array named Phrases --->
@@ -27,7 +21,7 @@ const phrases = [
 //  <---listens for the start of the game button to be pressed--->
 startGame[0].addEventListener('click', () => {
     overlay.style.display = 'none';
-    // sound.play();
+    
    
 });
 
@@ -54,7 +48,7 @@ function addPhraseToDisplay(phrase){
         if (phrase[i] === ' '){
             list.className = 'space';
         } else {
-            list.className = 'letter'
+            list.className = 'letter';
         }
     }
 }
@@ -71,7 +65,7 @@ function checkLetter(button){
     for (let i = 0; i < letters.length; i++) {
         if (button.textContent === letters[i].textContent) {
             letters[i].classList.add('show');
-            letters[i].style.transition = '.5ease-in-out';
+            letters[i].style.transition = '.5 ease-in-out';
             matchingLetters = true;
         }
     }
@@ -81,19 +75,19 @@ function checkLetter(button){
 
 
 //  <--- listen for the onscreen keyboard to be clicked --->
-qwerty.addEventListener('click', (z) => { 
+qwerty.addEventListener('click', (z) =>{ 
     if(z.target.tagName === 'BUTTON'){
         z.target.className = 'chosen';
         z.target.setAttribute('disabled', '');
         let matchingLetters = checkLetter(z.target);
         if(matchingLetters === null){
-            document.querySelectorAll('img')[missed].src = 'images/lostHeart.png';
+            document.querySelectorAll('img')[missed].src='images/lostHeart.png';
             z.target.className = 'mismatch';
             missed ++;
         }
         checkWin();
     }
-    // checkWin();
+    //  checkWin();
 })
 // qwerty.addEventListener('click', e => {});
 
