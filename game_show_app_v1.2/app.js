@@ -71,7 +71,7 @@ function checkLetter(button){
 
 
 //  <--- listen for the onscreen keyboard to be clicked --->
-qwerty.addEventListener('click', (z) => {  
+qwerty.addEventListener('click', (z) =>{  
     if(z.target.tagName === 'BUTTON'){
         z.target.className = 'chosen';
         z.target.setAttribute('disabled', '');
@@ -95,8 +95,8 @@ function checkWin() {
     const show = document.getElementsByClassName('show');
 
     if (letterClass.length === show.length) {
-        overlay.style.display= 'flex';
-        overlay.className= 'win';
+        overlay.style.display = 'flex';
+        overlay.className = 'win';
         document.querySelector('h2').textContent = "you did it!";
         playAgain();
     } else if (missed > 4 ) {
